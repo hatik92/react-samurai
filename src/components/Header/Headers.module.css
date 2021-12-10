@@ -1,0 +1,11 @@
+.header {
+    grid-area: h;
+    background-color: aquamarine;
+}
+.auth_block{
+    float: right;
+}
+
+.auth_block a {
+    color: #fff;
+}

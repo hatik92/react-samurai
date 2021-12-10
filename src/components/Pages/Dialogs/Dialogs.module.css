@@ -1,0 +1,38 @@
+.dialogs_content {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogs {
+    padding: 7px;
+}
+
+.dialogs a {
+    text-decoration: none;
+}
+
+.dialogs a.active {
+    color: blueviolet;
+}
+
+.dialogs .dialog {
+    
+}
+
+.messages {
+    padding: 7px;
+}
+
+.messages .message {
+
+}
+textarea {
+    outline: 0;
+}
+.error {
+    border: 1px solid red !important;
+}
+
+.valid {
+    border: 1px solid green !important;
+}
