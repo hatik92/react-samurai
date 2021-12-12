@@ -20,6 +20,9 @@ export const userAPI = {
     },
     profilePage(id) {
         return instance.get(`profile/${id}`).then(response => response.data)
+    },
+    profileStatus(id) {
+        return instance.get(`profile/status/${id}`).then(response => response.data)
     }
 }
 export const authAPI = {

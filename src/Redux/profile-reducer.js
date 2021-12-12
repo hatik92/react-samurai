@@ -2,6 +2,7 @@ import { userAPI } from "../api/api";
 
 const ADD_POST = "ADD_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_STATUS = "SET_STATUS";
 
 let defaultState = {
     posts: [
@@ -14,7 +15,8 @@ let defaultState = {
         { id:7, like:7, post: "this is fineeee!" },
     ],
     newPostText: "it-kamasutra.com",
-    userProfile: null
+    userProfile: null,
+    status: ""
 }
 
 const profileReducer = (state = defaultState, action) => {
@@ -30,6 +32,11 @@ const profileReducer = (state = defaultState, action) => {
                 ...state,
                 userProfile: action.userProfile
             }
+        case SET_STATUS: 
+            return {
+                ...state,
+                status: action.status
+            }
         default:
             return state
 
@@ -38,11 +45,19 @@ const profileReducer = (state = defaultState, action) => {
 
 export const addPost = (text) => ({type: ADD_POST, text})
 export const setUserProfile = (userProfile) => ({type: SET_USER_PROFILE, userProfile})
+export const setStatus = (status) => ({type: SET_STATUS, status})
 
 export const getUserProfile = (id) => {
     return (dispatch) => {
         userAPI.profilePage(id).then(data => {
             dispatch(setUserProfile(data))
+        })
+    }
+}
+export const getStatus = (id) => {
+    return (dispatch) => {
+        userAPI.profileStatus(id).then(data => {
+            dispatch(setStatus(data))
         })
     }
 }

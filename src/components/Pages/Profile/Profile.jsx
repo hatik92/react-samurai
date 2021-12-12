@@ -13,8 +13,11 @@ const Profile = (props) => {
   return <div className="main-content">
     <ProfileInfo
     fullName={props.userProfile.fullName}
+    userId={props.userProfile.userId}
     image={props.userProfile.photos}
     aboutMe={props.userProfile.aboutMe}
+    isOwner={props.isOwner}
+    status={props.status}
     />
     <Posts />
   </div>

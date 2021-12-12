@@ -1,19 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import c from './Users.module.css';
 import avatar from '../../../assets/images/avatar7.png'
 import { NavLink } from 'react-router-dom';
-import PaginatedItems from '../../common/pagination/paginate';
 import { Pagination } from '@mui/material';
 
 const Users = (props) => {
-  const [page, setPage] = useState(1);
   const handleChange = (e,value) => {
     console.log(e, value);
     props.onPageChanged(value)
-  }
-  const handleChangea = (e,value) => {
-    console.log(e, value);
-    setPage(value)
   }
   let pagesCount = Math.ceil(props.totalUserCount / props.pageSize)
   let pages = []
@@ -23,20 +17,7 @@ const Users = (props) => {
   return <div>
   <Pagination count={pagesCount} defaultPage={props.currentPage} onChange={handleChange} />
 
-  {/* <Pagination count={4} page={page} onChange={handleChangea} />
-  <PaginatedItems itemsPerPage={props.pageSize} pages={pages} />
-    <div>
-      {pages.map((p, i) => {
-        return <span key={i}
-          onClick={() => { props.onPageChanged(p) }}
-          className={`${props.currentPage === p ? c.activePage : ""} ${c.pagination}`}
-        >
-          {p}
-        </span>
-      })
-      }
-    </div> */}
-    <div className={c.list_wrapper} ng-app="app" ng-controller="MainCtrl as ctrl">
+  <div className={c.list_wrapper} ng-app="app" ng-controller="MainCtrl as ctrl">
       <ul className={c.list}>
         {props.users.map((el, i) =>
           <li className={c.list_item} key={i}>
