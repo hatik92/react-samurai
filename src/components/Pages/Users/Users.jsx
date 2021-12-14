@@ -15,7 +15,12 @@ const Users = (props) => {
     pages.push(i)
   }
   return <div>
-  <Pagination count={pagesCount} defaultPage={props.currentPage} onChange={handleChange} />
+  <Pagination
+  count={pagesCount}
+  defaultPage={props.currentPage}
+  onChange={handleChange}
+  siblingCount={6}
+  />
 
   <div className={c.list_wrapper} ng-app="app" ng-controller="MainCtrl as ctrl">
       <ul className={c.list}>
@@ -29,6 +34,7 @@ const Users = (props) => {
             <div className={c.list_item_content}>
               <h4>{el.name}</h4>
               <p>{el.status}</p>
+              <p>{el.id}</p>
             </div>
             <div className={c.about_block}>
               {/* <h4>Country: {el.location.country}</h4> */}

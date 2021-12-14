@@ -6,7 +6,6 @@ import ProfileInfo from './PRofileInfo/ProfileInfo';
 // import yerevanImage from '../../../assets/images/yerevan-header.jpg'
 
 const Profile = (props) => {
-  console.log(props);
   if(!props.userProfile) {
     return <Loader />
   }
@@ -17,7 +16,10 @@ const Profile = (props) => {
     image={props.userProfile.photos}
     aboutMe={props.userProfile.aboutMe}
     isOwner={props.isOwner}
-    status={props.status}
+    profileStatus={props.status}
+    updateStatus={props.updateStatus}
+    setStatus={props.setStatus}
+    uploadImage={props.uploadImage}
     />
     <Posts />
   </div>
