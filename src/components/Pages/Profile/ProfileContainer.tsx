@@ -5,9 +5,27 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { AppStoreType } from '../../../Redux/redux-store';
 import { getStatusSelector, getUserId, getUserProfileSel } from '../../../selecters/profile-selecters';
+import { UsersItem } from '../../../tsTypes/myTypes';
 
-const ProfileContainer = (props) => {
+type MapState = {
+  userProfile: Array<UsersItem>
+  userId: number
+  status: string
+}
+type MapDispatch = {
+  getUserProfile: (id:number) => void
+  getStatus: (id:number) => void
+  updateStatus: (status:string) => void
+  setStatus: (status:string) => void
+  uploadImage: (file:any) => void
+}
+type OwnProps = {
+  match:any
+}
+type PropsType = MapState & MapDispatch & OwnProps
+const ProfileContainer: React.FC<PropsType> = (props) => {
   useEffect(() => {
     let userId = props.match.params.userId
     if(!userId) {
@@ -19,7 +37,7 @@ const ProfileContainer = (props) => {
 
   return <Profile {...props} isOwner={!props.match.params.userId} />
 }
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStoreType) => {
   return {
     userProfile: getUserProfileSel(state),
     userId: getUserId(state),

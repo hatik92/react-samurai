@@ -10,7 +10,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import appReducer from "./app-reducer";
 
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     images: imagesReducer,
     nav: navReducer,
     profile: profileReducer,
@@ -19,12 +19,15 @@ let reducers = combineReducers({
     auth: authReducer,
     app: appReducer
 });
-
+type RootReducerType = typeof rootReducer
+export type AppStoreType = ReturnType<RootReducerType>
 
 // const composedEnhancer = composeWithDevTools(applyMiddleware(thunk))
 // let store = createStore(reducers, composedEnhancer);
 // window.store = store
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers,  composeEnhancers(applyMiddleware(thunkMiddleware)));
+const store = createStore(rootReducer,  composeEnhancers(applyMiddleware(thunkMiddleware)));
+// @ts-ignore
 window.__store__ = store;
 export default store;

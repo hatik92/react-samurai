@@ -3,11 +3,11 @@ import { authUser } from "./auth-reducer";
 
 const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
 
-let defaultState = {
+let initialState = {
     initialized: false
 }
 
-const appReducer = (state = defaultState, action) => {
+const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {

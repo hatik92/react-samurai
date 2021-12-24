@@ -1,8 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import c from "./ProfileInfo.module.css";
 import avatar from '../../../../assets/images/avatar7.png'
+import { Image } from "../../../../tsTypes/myTypes";
 
-const ProfileInfo = ({ fullName, image, aboutMe, profileStatus, isOwner, updateStatus, uploadImage }) => {
+type Props = {
+  fullName: string
+  image: Image
+  aboutMe: string
+  profileStatus: string
+  isOwner: boolean
+  updateStatus: (status: string) => void
+  uploadImage: (status: any) => void
+}
+
+
+const ProfileInfo: React.FC<Props> = ({ fullName, image, aboutMe, profileStatus, isOwner, updateStatus, uploadImage }) => {
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(profileStatus);
   
@@ -13,10 +25,10 @@ const ProfileInfo = ({ fullName, image, aboutMe, profileStatus, isOwner, updateS
     updateStatus(status)
     setEditMode(false)
   }
-  const onChangeStatus = (e) => {
+  const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
     setStatus(e.currentTarget.value)
   }
-  const updateMyPhoto = event => {
+  const updateMyPhoto = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
       uploadImage(img)

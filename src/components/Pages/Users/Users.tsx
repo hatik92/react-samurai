@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import c from './Users.module.css';
 import avatar from '../../../assets/images/avatar7.png'
 import { NavLink } from 'react-router-dom';
 import { Pagination } from '@mui/material';
+import { UsersItem } from '../../../tsTypes/myTypes';
 
-const Users = (props) => {
-  const handleChange = (e,value) => {
-    console.log(e, value);
-    props.onPageChanged(value)
+type PropsType = {
+  totalUserCount: number
+  pageSize:number
+  currentPage: number
+  users: Array<UsersItem>
+  followingInProgress: Array<number>
+  onPageChanged: (value:number) => void
+  follow: (id:number) => void
+  unfollow: (id:number) => void
+}
+
+
+const Users: React.FC<PropsType> = (props) => {
+  const handleChange = (e:ChangeEvent<unknown>, page: number) => {
+    console.log(e, page);
+    props.onPageChanged(page)
   }
   let pagesCount = Math.ceil(props.totalUserCount / props.pageSize)
   let pages = []
@@ -15,14 +28,14 @@ const Users = (props) => {
     pages.push(i)
   }
   return <div>
-  <Pagination
-  count={pagesCount}
-  defaultPage={props.currentPage}
-  onChange={handleChange}
-  siblingCount={6}
-  />
+    <Pagination
+      count={pagesCount}
+      defaultPage={props.currentPage}
+      onChange={handleChange}
+      siblingCount={6}
+    />
 
-  <div className={c.list_wrapper} ng-app="app" ng-controller="MainCtrl as ctrl">
+    <div className={c.list_wrapper} ng-app="app" ng-controller="MainCtrl as ctrl">
       <ul className={c.list}>
         {props.users.map((el, i) =>
           <li className={c.list_item} key={i}>
@@ -50,14 +63,19 @@ const Users = (props) => {
                 : <button onClick={() => {
                   props.follow(el.id)
                 }}
-                disabled={props.followingInProgress.some(id => id === el.id)}
+                  disabled={props.followingInProgress.some(id => id === el.id)}
                 >Follow</button>}
             </div>
           </li>
         )}
       </ul>
     </div>
-    <Pagination count={pagesCount} defaultPage={props.currentPage} onChange={handleChange} />
+    <Pagination
+      count={pagesCount}
+      defaultPage={props.currentPage}
+      onChange={handleChange}
+      siblingCount={6}
+    />
 
   </div>
 

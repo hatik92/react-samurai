@@ -6,13 +6,28 @@ import Loader from '../../common/loader/loader';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { getCurrentPage, getFollowingInProgress, getIsFetching, getPagelector, getTotalUserCount, getUsersSelector } from '../../../selecters/users-selecters';
+import { AppStoreType } from '../../../Redux/redux-store';
+import { UsersItem } from '../../../tsTypes/myTypes';
 
-
-const UsersContainer = (props) => {
+type MapStateToProps = {
+  users: Array<UsersItem>
+  pageSize: number
+  totalUserCount: number
+  currentPage: number
+  isFetching: boolean
+  followingInProgress: Array<number>
+}
+type MapDispatch = {
+  follow: (id:number) => void
+  unfollow: (id:number) => void
+  getUsres: (pageNumber:number, pageSize:number) => void
+}
+type PropsType = MapStateToProps & MapDispatch
+const UsersContainer: React.FC<PropsType> = (props) => {
   useEffect(() => {
     props.getUsres(props.currentPage, props.pageSize)
   }, [])
-  const onPageChanged = (pageNumber) => {
+  const onPageChanged:(nageNumber:number) => void = (pageNumber) => {
     props.getUsres(pageNumber, props.pageSize)
   }
   return <>
@@ -33,7 +48,7 @@ const UsersContainer = (props) => {
   </>
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:AppStoreType) => {
   return {
     users: getUsersSelector(state),
     pageSize: getPagelector(state),

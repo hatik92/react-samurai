@@ -1,5 +1,8 @@
-
-let defaultState = {
+type nav_item = {
+    item: string
+    link: string
+}
+let initialState = {
     nav_items: [
         { item: "Profile", link: "/profile"},
         { item: "Users", link: "/users"},
@@ -7,10 +10,10 @@ let defaultState = {
         { item: "News", link: "/news"},
         { item: "Music", link: "/music"},
         { item: "Settings", link: "/settings"},
-    ],
+    ] as Array<nav_item>,
 }
 
-const navReducer = (state = defaultState, action) => {
+const navReducer = (state = initialState, action:any) => {
     return state
 }
 

@@ -1,14 +1,21 @@
 const ADD_MESSAGE = "ADD_MESSAGE";
 // const UPDATE_NEW_MESSAGE = "UPDATE_NEW_MESSAGE";
-
-let defaultState = {
+type Users = {
+    id:number
+    name:string
+}
+type Messages = {
+    id:number
+    message:string
+}
+let initialState = {
     users: [
-        { name: "Dimich", id: 1 },
-        { name: "Tigran", id: 2 },
-        { name: "Armine", id: 3 },
-        { name: "Hranto", id: 4 },
-        { name: "Lyova", id: 5 }
-    ],
+        { id: 1, name: "Dimich" },
+        { id: 2, name: "Tigran" },
+        { id: 3, name: "Armine" },
+        { id: 4, name: "Hranto" },
+        { id: 5, name: "Lyova" }
+    ] as Array<Users>,
     messages: [
         {id: 1, message: "hi" },
         {id: 2, message: "how are you?" },
@@ -16,10 +23,10 @@ let defaultState = {
         {id: 4, message: "yo" },
         {id: 5, message: "yo" },
         {id: 6, message: "yo" },
-    ],
+    ] as Array<Messages>,
 }
 
-const dialogsReducer = (state = defaultState, action) => {
+const dialogsReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case ADD_MESSAGE:
             console.log("AAA");
@@ -32,7 +39,10 @@ const dialogsReducer = (state = defaultState, action) => {
             return state
     }
 }
-
-export const sendMessage = (text) => ({type: ADD_MESSAGE, text})
+type SendMessageActionType = {
+    type: typeof ADD_MESSAGE
+    text: string
+}
+export const sendMessage = (text:string): SendMessageActionType => ({type: ADD_MESSAGE, text})
 
 export default dialogsReducer;
